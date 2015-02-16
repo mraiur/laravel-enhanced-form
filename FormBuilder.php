@@ -12,6 +12,12 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if( !isset($options['displayValue'])) $options['displayValue'] = 'name';
         if( !isset($options['submitValue'])) $options['submitValue'] = 'id';
 
+        $ariaAttributes = [];
+
+        if( isset($options['aria']) ){
+            $ariaAttributes = array_fill_keys( explode(',', $options['aria']), null);
+        }
+
         $html = array();
 
         foreach ($list as $index => $row)
@@ -19,8 +25,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $display = $row[$options['displayValue']];
             $value = $row[$options['submitValue']];
 
-            unset( $row[$options['displayValue']], $row[$options['submitValue']]);
-            $html[] = $this->getAriaOption($display, $value, $selected, $row);
+            $ariaRow = array_intersect_key($row, array_intersect_key($row, $ariaAttributes));
+            $html[] = $this->getAriaOption($display, $value, $selected, $ariaRow);
         }
 
         $options = $this->html->attributes($options);
