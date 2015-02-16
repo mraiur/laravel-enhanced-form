@@ -25,7 +25,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $display = $row[$options['displayValue']];
             $value = $row[$options['submitValue']];
 
-            $ariaRow = array_intersect_key($row, array_intersect_key($row, $ariaAttributes));
+            $ariaRow = array_intersect_key($row, $ariaAttributes);
             $html[] = $this->getAriaOption($display, $value, $selected, $ariaRow);
         }
 
