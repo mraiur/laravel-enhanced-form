@@ -42,6 +42,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
 
         $options = array_merge( ['value' => e($value), 'selected' => $selected], $ariaData);
 
-        return '<option'.$this->html->attributes($options).'>'.e($display).'</option>';
+        return '<option'.$this->html->ariaAttributes($options).'>'.e($display).'</option>';
     }
 }

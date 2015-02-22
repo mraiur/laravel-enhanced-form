@@ -21,6 +21,7 @@ class FormServiceProvider extends ServiceProvider {
 
         $this->registerFormBuilder();
 
+        $this->app->alias('html', 'Mraiur\EnhancedForm\HtmlBuilder');
         $this->app->alias('form', 'Mraiur\EnhancedForm\FormBuilder');
     }
 
@@ -37,6 +38,11 @@ class FormServiceProvider extends ServiceProvider {
 
             return $form->setSessionStore($app['session.store']);
         });
+
+        $this->app->bindShared('html', function($app)
+        {
+            return new HtmlBuilder($app['url']);
+        });
     }
 
     /**
@@ -46,7 +52,7 @@ class FormServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return array('form');
+        return array('html', 'form');
     }
 
 }
