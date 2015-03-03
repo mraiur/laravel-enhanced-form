@@ -17,10 +17,12 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         return count($html) > 0 ? ' '.implode(' ', $html) : '';
     }
 
+    private $aria_excluded_keys = ['value', 'name', 'id', 'style', 'autofocus', 'form', 'multiple', 'required', 'size'];
+
     protected function ariaAttributeElement($key, $value)
     {
         if (is_numeric($key)) $key = $value;
 
-        if ( ! is_null($value)) return ( ($key=='value')?$key:"data-".$key).'="'.e($value).'"';
+        if ( ! is_null($value)) return ( (in_array($key, $this->aria_excluded_keys))?$key:"data-".$key).'="'.e($value).'"';
     }
 }
