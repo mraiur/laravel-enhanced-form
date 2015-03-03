@@ -29,7 +29,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $html[] = $this->getAriaOption($display, $value, $selected, $ariaRow);
         }
 
-        $options = $this->html->attributes($options);
+        $options = $this->html->AriaAttributes($options, ['aria']);
 
         $list = implode('', $html);
 
@@ -39,9 +39,8 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     protected function getAriaOption($display, $value, $selected, $ariaData = array())
     {
         $selected = $this->getSelectedValue($value, $selected);
-
         $options = array_merge( ['value' => e($value), 'selected' => $selected], $ariaData);
 
-        return '<option'.$this->html->ariaAttributes($options).'>'.e($display).'</option>';
+        return '<option'.$this->html->AriaAttributes($options).'>'.e($display).'</option>';
     }
 }
