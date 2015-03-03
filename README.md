@@ -14,9 +14,9 @@ The package is extending the Laravels Html/From package to add additional functi
 ```
 Output:
 ```
-<select displayvalue="title" submitvalue="id" name="test">
-    <option value="1" role="user">title-&gt;a</option>
-    <option value="2" role="admin">title-&gt;b</option></select>
+<select aria-displayvalue="title" aria-submitvalue="id" name="test">
+    <option value="1" aria-role="user">title-&gt;a</option>
+    <option value="2" aria-role="admin">title-&gt;b</option></select>
 ```
 
 Setting the aria value to a comma separated list will add the matching Model attributes.
