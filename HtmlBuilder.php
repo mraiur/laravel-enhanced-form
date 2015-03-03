@@ -17,7 +17,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
         return count($html) > 0 ? ' '.implode(' ', $html) : '';
     }
 
-    private $aria_excluded_keys = ['value', 'name', 'id', 'style', 'autofocus', 'form', 'multiple', 'required', 'size'];
+    private $aria_excluded_keys = ['selected', 'value', 'name', 'id', 'style', 'autofocus', 'form', 'multiple', 'required', 'size'];
 
     protected function ariaAttributeElement($key, $value)
     {
