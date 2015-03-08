@@ -1,6 +1,37 @@
 <?php namespace Mraiur\EnhancedForm;
 
 class FormBuilder extends \Illuminate\Html\FormBuilder {
+
+    private function ariaKeysToDisplay($options){
+        $ariaAttributes = [];
+
+        if( isset($options['aria']) ){
+            $ariaAttributes = array_fill_keys( explode(',', $options['aria']), null);
+        }
+        return $ariaAttributes;
+    }
+    
+    public function Aria($options = [], $data = [])
+    {
+        $name = $options['name'];
+        $valueKey = (isset($options['value'])?$options['value']:'value');
+        $excludeOptions = ['aria'];
+        $ariaExclude = ['type'];
+            
+        if(!isset($options['type'])){
+            $options['type'] = 'hidden';
+        }
+
+        if(isset($data[$valueKey])){
+            $options['value'] = $data[$valueKey];
+        }
+
+        $ariaData = array_intersect_key($data, $this->ariaKeysToDisplay($options));
+
+        
+        return '<input'.$this->html->AriaAttributes($options+$ariaData, $excludeOptions, $ariaExclude).'>';
+    }
+
     public function AriaSelect($name, $list = array(), $selected = null, $options = array()) {
 
         $selected = $this->getValueAttribute($name, $selected);
@@ -12,11 +43,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if( !isset($options['displayValue'])) $options['displayValue'] = 'name';
         if( !isset($options['submitValue'])) $options['submitValue'] = 'id';
 
-        $ariaAttributes = [];
-
-        if( isset($options['aria']) ){
-            $ariaAttributes = array_fill_keys( explode(',', $options['aria']), null);
-        }
+        $ariaAttributes = $this->ariaKeysToDisplay($options);
 
         $html = array();
 
