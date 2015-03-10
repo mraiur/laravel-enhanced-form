@@ -33,7 +33,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
     }
 
     public function AriaSelect($name, $list = array(), $selected = null, $options = array()) {
-
         $selected = $this->getValueAttribute($name, $selected);
 
         $options['id'] = $this->getIdAttribute($name, $options);
@@ -68,6 +67,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         $selected = $this->getSelectedValue($value, $selected);
         $options = array_merge( ['value' => e($value), 'selected' => $selected], $ariaData);
 
-        return '<option'.$this->html->AriaAttributes($options).'>'.e($display).'</option>';
+        return '<option'.$this->html->AriaAttributes($options, [], ['selected']).'>'.e($display).'</option>';
     }
 }
