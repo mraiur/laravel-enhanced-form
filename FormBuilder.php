@@ -44,7 +44,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
         if ( ! isset($options['name'])) $options['name'] = $name;
 
         $optionValueField = 'id';
-        $optionDisplayField = 'title';
+        $optionDisplayField = 'label';
         $optionAriaPrefix = [];
 
         if(isset($options['option'])) {
