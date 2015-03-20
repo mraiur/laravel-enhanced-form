@@ -26,36 +26,58 @@ class FormBuilder extends \Illuminate\Html\FormBuilder {
             $options['value'] = $data[$valueKey];
         }
 
-        $ariaData = array_intersect_key($data, $this->ariaKeysToDisplay($options));
+        $ariaAttributes = $this->ariaKeysToDisplay($options);
+        $displayData = array_intersect_key($data, $ariaAttributes);
 
-        
-        return '<input'.$this->html->AriaAttributes($options+$ariaData, $excludeOptions, $ariaExclude).'>';
+        return '<input'.$this->html->AriaAttributes($options+$displayData, $ariaAttributes, ['aria']).'>';
     }
 
     public function AriaSelect($name, $list = array(), $selected = null, $options = array()) {
+        
+
         $selected = $this->getValueAttribute($name, $selected);
 
         $options['id'] = $this->getIdAttribute($name, $options);
+        $directAttr = [];
+        $ariaPrefix = [];
 
         if ( ! isset($options['name'])) $options['name'] = $name;
 
-        if( !isset($options['displayValue'])) $options['displayValue'] = 'name';
-        if( !isset($options['submitValue'])) $options['submitValue'] = 'id';
+        $optionValueField = 'id';
+        $optionDisplayField = 'title';
+        $optionAriaPrefix = [];
 
-        $ariaAttributes = $this->ariaKeysToDisplay($options);
+        if(isset($options['option'])) {
+            if(isset($options['option']['displayField'])) {
+                $optionDisplayField = $options['option']['displayField'];
+            }
 
+            if(isset($options['option']['valueField'])) {
+                $optionValueField = $options['option']['valueField'];
+            }
+
+            if(isset($options['option']['aria'])) {
+                $optionAriaPrefix = $this->ariaKeysToDisplay($options['option']);
+            }
+        }
+
+        if(isset($options['aria'])){
+            $ariaPrefix = $this->ariaKeysToDisplay($options);
+        }
+        
         $html = array();
 
         foreach ($list as $index => $row)
         {
-            $display = $row[$options['displayValue']];
-            $value = $row[$options['submitValue']];
+            $display = $row[$optionDisplayField];
+            $value = $row[$optionValueField];
 
-            $ariaRow = array_intersect_key($row, $ariaAttributes);
+            $ariaRow = array_intersect_key($row, $optionAriaPrefix);
             $html[] = $this->getAriaOption($display, $value, $selected, $ariaRow);
         }
 
-        $options = $this->html->AriaAttributes($options, ['aria']);
+        $options = $this->html->AriaAttributes($options, $ariaPrefix, ['aria', 'option']);
+
 
         $list = implode('', $html);
 

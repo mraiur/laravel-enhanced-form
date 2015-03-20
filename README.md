@@ -7,20 +7,27 @@ The package is extending the Laravels Html/From package to add additional functi
 
 ```
 {!! Form::ariaSelect('test', [
-    ['id' => 1, 'title' => 'title->a', 'role' => 'user'],
-    ['id' => 2, 'title' => 'title->b', 'role' => 'admin']
-], null, ['displayValue'=>'title', 'submitValue' => 'id', 'aria' => 'role']) !!}
+    ['id' => 0, 'title' => '---++---', 'role' => 'test'],
+    ['id' => 1, 'title' => 'title->a', 'role' => 'test'],
+    ['id' => 2, 'title' => 'title->b', 'role' => 'admi', 'penka' => '1']
+], null, [
+    'option' => [
+        'displayField'=> 'title',
+        'valueField' => 'id',
+        'aria' => 'role,id'
+    ]
+, 'placeholder' => 'placeholder text', 'custom-data' => 1, 'aria' => 'custom-data']) !!}
 ```
-
-
 
 
 Output:
 
 ```
-<select aria-displayvalue="title" aria-submitvalue="id" name="test">
-    <option value="1" aria-role="user">title-&gt;a</option>
-    <option value="2" aria-role="admin">title-&gt;b</option></select>
+<select placeholder="placeholder text" aria-custom-data="1" name="test">
+    <option value="0" id="0" role="test">---++---</option>
+    <option value="1" id="1" role="test">title-&gt;a</option>
+    <option value="2" id="2" role="admi">title-&gt;b</option>
+</select>
 ```
 
 ### New component using hidden input by default for easy form data access via js for example.
@@ -36,7 +43,8 @@ Output:
 Output:
 
 ```
-<input name="testName" type="hidden" value="TEST" data-role="admin" data-myid="1">
+<input name="testName" type="hidden" value="TEST" aria-role="admin" aria-myid="1">
+
 ```
 
 Setting the aria value to a comma separated list will add the matching Model attributes.
