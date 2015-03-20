@@ -7,7 +7,7 @@ The package is extending the Laravels Html/From package to add additional functi
 
 ```
 {!! Form::ariaSelect('test', [
-    ['id' => 0, 'title' => '---++---', 'role' => 'test'],
+    ['id' => 0, 'title' => '---++---', 'role' => 'test', 'selected'=>'selected'],
     ['id' => 1, 'title' => 'title->a', 'role' => 'test'],
     ['id' => 2, 'title' => 'title->b', 'role' => 'admi', 'penka' => '1']
 ], null, [
@@ -24,9 +24,9 @@ Output:
 
 ```
 <select placeholder="placeholder text" aria-custom-data="1" name="test">
-    <option value="0" id="0" role="test">---++---</option>
-    <option value="1" id="1" role="test">title-&gt;a</option>
-    <option value="2" id="2" role="admi">title-&gt;b</option>
+    <option value="0" aria-id="0" aria-role="test">---++---</option>
+    <option value="1" aria-id="1" aria-role="test">title-&gt;a</option>
+    <option value="2" aria-id="2" aria-role="admi">title-&gt;b</option>
 </select>
 ```
 
