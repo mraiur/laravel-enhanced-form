@@ -23,8 +23,8 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
         if ( ! is_null($value)) {
                 if(array_key_exists($key, $ariaPrefix)){
-                    return 'aria-'.$key.'="'.e($value).'"';
-                } else { 
+                    return 'data-'.$key.'="'.e($value).'"';
+                } else {
                     return $key.'="'.e($value).'"';
                 }
         }
