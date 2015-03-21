@@ -23,10 +23,10 @@ The package is extending the Laravels Html/From package to add additional functi
 Output:
 
 ```
-<select placeholder="placeholder text" aria-custom-data="1" name="test">
-    <option value="0" aria-id="0" aria-role="test">---++---</option>
-    <option value="1" aria-id="1" aria-role="test">title-&gt;a</option>
-    <option value="2" aria-id="2" aria-role="admi">title-&gt;b</option>
+<select placeholder="placeholder text" data-custom-data="1" name="test">
+    <option value="0" data-id="0" data-role="test">---++---</option>
+    <option value="1" data-id="1" data-role="test">title-&gt;a</option>
+    <option value="2" data-id="2" data-role="admi">title-&gt;b</option>
 </select>
 ```
 
@@ -43,7 +43,7 @@ Output:
 Output:
 
 ```
-<input name="testName" type="hidden" value="TEST" aria-role="admin" aria-myid="1">
+<input name="testName" type="hidden" value="TEST" data-role="admin" data-myid="1">
 
 ```
 
